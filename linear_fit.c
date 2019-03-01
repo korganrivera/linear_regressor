@@ -9,14 +9,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "linear_algebra.c"
+
+int solution_beautify(unsigned rows, double *b);
 
 int main(int argc, char **argv){
     FILE *fp;
     unsigned i, j, rows = 0, cols = 0;
     char c;
     double **x;
-    double *temp_x1, *temp_x2, *b, *s;
+    double *prediction, *b, *s;
     double **x_trans, **trans_mult, **trans_mult2;
 
     // check command line input.
@@ -77,8 +80,7 @@ int main(int argc, char **argv){
     fclose(fp);
 
     // malloc space for vectors.
-    if((temp_x1 = malloc(rows * sizeof(double))) == NULL) { puts("malloc failed"); exit(1); }
-    if((temp_x2 = malloc(rows * sizeof(double))) == NULL) { puts("malloc failed"); exit(1); }
+    if((prediction = malloc(rows * sizeof(double))) == NULL) { puts("malloc failed"); exit(1); }
     if((b =       malloc(cols * sizeof(double))) == NULL) { puts("malloc failed"); exit(1); }
     if((s =       malloc(rows * sizeof(double))) == NULL) { puts("malloc failed"); exit(1); }
 
@@ -138,9 +140,11 @@ int main(int argc, char **argv){
     // show solution.
     puts("solution vector:");
     echo_vector(cols, b);
+    puts("How the function will look:");
+    solution_beautify(cols, b);
 
-    // multiply x by b. Put in temp_x1;
-    multiply_x_by_v(rows, cols, x, b, temp_x1);
+    // multiply x by b. Put in prediction;
+    multiply_x_by_v(rows, cols, x, b, prediction);
 
     // free x and b.
     for(i = 0; i < rows; i++)
@@ -149,39 +153,59 @@ int main(int argc, char **argv){
     free(b);
 
     // show predicted values.
-    puts("predicted values using this model:");
-    echo_vector(rows, temp_x1);
+    puts("\npredicted values using this model:");
+    echo_vector(rows, prediction);
 
     // Now calculate r^2 to measure how good the model is.
 
-    // multiply temp_x1 by -1.0.
-    scale_v(rows, -1.0, temp_x1);
+    // calculate average of s and prediction.
+    double s_average = 0.0;
+    double prediction_average = 0.0;
+    for(i = 0; i < rows; i++){
+        s_average += s[i];
+        prediction_average += prediction[i];
+    }
+    s_average /= rows;
+    prediction_average /= rows;
 
-    // temp_x2 = s - temp_x1
-    add_v(rows, s, temp_x1, temp_x2);
+    // subtract s_average from each s value.
+    // and prediction_average from each prediction value.
+    for(i = 0; i < rows; i++){
+        s[i] -= s_average;
+        prediction[i] -= prediction_average;
+    }
 
-    free(temp_x1);
+    double sp_sum = 0.0;
+    double s2_sum = 0.0;
+    double p_sq_sum = 0.0;
+    for(i = 0; i < rows; i++){
+        sp_sum += s[i] * prediction[i];
+        s2_sum += s[i] * s[i];
+        p_sq_sum += prediction[i] * prediction[i];
+    }
 
-    // sum squares of elements of temp_x2.
-    double d = dot(rows, temp_x2, temp_x2);
-
-    free(temp_x2);
-
-    // calculate average of values in s.
-    double average = 0.0;
-    for(i = 0; i < rows; i++)
-        average += s[i];
-    average /= rows;
-
-    // sum square of differences between s values and average s value.
-    double f = 0.0;
-    for(i = 0; i < rows; i++)
-        f += (s[i] - average) * (s[i] - average);
-
+    free(prediction);
     free(s);
 
-    double r_2 = d / f;
-    r_2 = 1.0 - r_2;
-
+    double r_2 = sp_sum / sqrt(s2_sum * p_sq_sum);
     printf("r² = %lf\n", r_2);
+}
+
+
+int solution_beautify(unsigned rows, double *b){
+    if(rows == 0)
+        return 0;
+    assert(b != NULL && "solution_beautify(): pointer is NULL. Why?");
+    if(rows == 1)
+        printf("f() = %lf\n", b[0]);
+    else if(rows == 2)
+        printf("f(x) = %.3lfx + %.3lf\n", b[0], b[1]);
+    else if(rows == 3)
+        printf("f(x, y) = %.3lfx + %.3lfy + %.3lf\n", b[0], b[1], b[2]);
+    else if(rows == 4)
+        printf("f(x, y, z) = %.3lfx + %.3lfy + %.3lfz + %.3lf\n", b[0], b[1], b[2], b[3]);
+    else{
+        printf("f(v₀, v₁, v₂, ...) = %.3lfv₀ + %.3lfv₁ + %.3lfv₂ + ... + %.3lf\n", b[0], b[1], b[2], b[rows - 1]);
+    }
+    return 1;
 }
