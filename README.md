@@ -36,6 +36,10 @@ it's giving you the C values. For the above case, the linear function would be:
 z = 1.64x - 0.434y + 14.229
 ```
 
+Here's a 3D plot of the above function:
+
+![3D model](3D_graph.png)
+
 (I need to make this more explicit though, so I don't need to explain it in a README.)
 
 ## It didn't work when I tried it.
