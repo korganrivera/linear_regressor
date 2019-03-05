@@ -53,6 +53,8 @@ int copy(unsigned rows, unsigned cols, double **A, double **B){
             B[i][j] = A[i][j];
     }
 }
+
+
 // add two vectors together.
 int add_v(unsigned rows, double *vector1, double *vector2, double *vector3){
     assert(vector1 != NULL && vector2 != NULL && vector3 != NULL && "add_v(): pointer is NULL. Why?");
@@ -90,6 +92,7 @@ int scale_v(unsigned rows, double factor, double *vector){
         vector[i] *= factor;
 }
 
+
 /* transposes array into trans.
  * usage example: transpose(3, 5, x, x_trans);
  */
@@ -102,6 +105,7 @@ int transpose(unsigned rows, unsigned cols, double **array, double **trans){
     }
     return 1;
 }
+
 
 /* multiply two matrices together.
  * usage example: multiply(3, 5, 5, 3, A, B, C);
@@ -121,6 +125,7 @@ int multiply(unsigned a_rows, unsigned a_cols, unsigned b_rows, unsigned b_cols,
     }
     return 1;
 }
+
 
 /* multiply a matrix by a vector.
  * example usage: multiply_x_by_v(3, 5, array, v1, v2);
