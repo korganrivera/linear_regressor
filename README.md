@@ -23,18 +23,7 @@ The solution is a linear function of the form:
 
 ![f(v_1, v_2, v_3, ..., v_n) = C_1*v_1 + C_2*v_2 + C_3*v_3 + ... + C_n*v_n + C_0](linear_function.png)
 
-where the v's are your variables and the C's are the constants that give you your solution. When linear_fit says, for example:
-
-```
-solution vector:
-1.640 -0.434 14.229
-```
-
-it's giving you the C values. For the above case, the linear function would be:
-
-```
-z = 1.64x - 0.434y + 14.229
-```
+where the v's are your variables and the C's are the constants that give you your solution.
 
 Here's a 3D plot of the above function:
 
@@ -45,4 +34,4 @@ Here's a 3D plot of the above function:
 ## It didn't work when I tried it.
 I mean, what do you want from me?
 
-I haven't stress-tested this at all. It'll probably fail with large numbers and/or large data sets.
+I haven't stress-tested this at all. It'll probably fail with large numbers and/or large data sets. It works pretty well for me.
