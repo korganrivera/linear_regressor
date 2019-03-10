@@ -3,8 +3,7 @@
 Reads data from csv file and performs a linear regression on it if possible.
 
 ## How to compile
-`gcc linear_fit.c -o linear_fit -lm`
-
+type `make`
 
 ## Usage
 `./linear_fit <csv file>`
@@ -29,9 +28,11 @@ Here's a 3D plot of the above function:
 
 ![3D model](3d_graph.png)
 
-(I need to make this more explicit though, so I don't need to explain it in a README.)
-
 ## It didn't work when I tried it.
 I mean, what do you want from me?
 
 I haven't stress-tested this at all. It'll probably fail with large numbers and/or large data sets. It works pretty well for me.
+
+##TO-DO
+* I'll include polynomial regression later.
+* make a smarter makefile later.

@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "linear_algebra.c"
+#include "linear_algebra.h"
 
 int solution_beautify(unsigned rows, double *b);
 

@@ -5,6 +5,9 @@
 
 #include <assert.h>
 #include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "linear_algebra.h"
 
 /* displays matrix.
  * usage example: echo_array(3, 4, array);
