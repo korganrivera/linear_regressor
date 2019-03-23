@@ -286,7 +286,7 @@ int invert(unsigned rows, double **array){
 }
 
 
-int dot(unsigned rows, double *vector1, double *vector2){
+double dot(unsigned rows, double *vector1, double *vector2){
     assert(vector1 != NULL && vector2 != NULL && "dot(): pointer is NULL. Why?");
     double sum = 0.0;
 
