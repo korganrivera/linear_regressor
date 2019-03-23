@@ -23,4 +23,4 @@ double determinant(unsigned rows, double **array);
 
 int invert(unsigned rows, double **array);
 
-int dot(unsigned rows, double *vector1, double *vector2);
+double dot(unsigned rows, double *vector1, double *vector2);
