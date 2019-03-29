@@ -4,6 +4,15 @@
  * Takes data from csv file, gives you a linear fit function.
  * This is a rewrite of ugly code I wrote 4 years ago.
  * Korgan Rivera
+ *
+ * Something I need to add: I need to shift all points by the mean to make
+ * calculations smaller and simpler.  E.g. take mean of all x coordinates.
+ * Subtract that from all x-coords, do the fit, then add mean to x-coords in
+ * the answer. Do same for all other coords.
+ *
+ * Also need the code not to explode when I send it a file that isn't formatted
+ * in the way it wants.
+ *
  */
 
 #include <stdio.h>
