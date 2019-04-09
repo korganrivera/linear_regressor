@@ -58,6 +58,10 @@ int main(int argc, char **argv){
             rows++;
     rewind(fp);
 
+    if(rows == 0){
+        puts("File empty!");
+        exit(1);
+    }
     // count commas on first line.
     while((c = fgetc(fp)) != '\n')
         if(c == ',')
