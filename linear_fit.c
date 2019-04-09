@@ -58,11 +58,37 @@ int main(int argc, char **argv){
             rows++;
     rewind(fp);
 
-    // count columns in file.
+    // count commas on first line.
     while((c = fgetc(fp)) != '\n')
         if(c == ',')
             cols++;
+
+    if(cols == 0){
+        puts("no columns found.");
+        exit(1);
+    }
+
+    // make sure every line has that many commas.
+    while((c = fgetc(fp)) != EOF){
+        unsigned commas_on_line = 0;
+        while(c != '\n'){
+            if(c == ',')
+                commas_on_line++;
+            c = fgetc(fp);
+        }
+        if(commas_on_line != cols){
+
+            if(commas_on_line == 0){
+                puts("newline problem in file: check for and remove extra or trailing newlines.");
+                exit(1);
+            }
+
+            puts("Comma problem in file: file needs to have the same number of commas on every line.");
+            exit(1);
+        }
+    }
     rewind(fp);
+
 
     /* rows must be >= cols, otherwise you don't have enough data to make a
      * model.  e.g. you can't fit a line to a single point; you can't fit a
@@ -70,7 +96,7 @@ int main(int argc, char **argv){
      */
     if(rows < cols){
         printf("PROBLEM-your data has %u rows and %u columns.\n", rows, cols);
-        printf("You need >= %u rows to fit %u-dimensional data.", cols, cols);
+        printf("You need >= %u rows to fit %u-dimensional data.\n", cols, cols);
         exit(0);
     }
 
