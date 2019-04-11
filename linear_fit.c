@@ -62,6 +62,7 @@ int main(int argc, char **argv){
         puts("File empty!");
         exit(1);
     }
+
     // count commas on first line.
     while((c = fgetc(fp)) != '\n')
         if(c == ',')
@@ -92,7 +93,6 @@ int main(int argc, char **argv){
         }
     }
     rewind(fp);
-
 
     /* rows must be >= cols, otherwise you don't have enough data to make a
      * model.  e.g. you can't fit a line to a single point; you can't fit a
