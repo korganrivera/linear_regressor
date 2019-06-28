@@ -28,11 +28,7 @@ Here's a 3D plot of the above function:
 
 ![3D model](3d_graph.png)
 
-## It didn't work when I tried it.
-I mean, what do you want from me?
-
-I haven't stress-tested this at all. It'll probably fail with large numbers and/or large data sets. It works pretty well for me.
-
 ## TO-DO
 * I'll include polynomial regression later.
 * make a smarter makefile later.
+* Maybe include more statistical info, like residuals, etc.
